@@ -47,6 +47,7 @@ def resginter(request):
 #22222222
 #6666666
 #55555555
+#88888888
 def project_detils():
     pass
 def report():
