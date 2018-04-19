@@ -35,3 +35,5 @@ def qms_main(request):
     print('redirect')
     return HttpResponseRedirect('login')
 
+def resginter():
+    pass
