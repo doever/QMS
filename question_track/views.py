@@ -42,6 +42,7 @@ def resginter(request):
     if request.method == 'POST':
         pass
 
+#11111111
 
 def project_detils():
     pass
