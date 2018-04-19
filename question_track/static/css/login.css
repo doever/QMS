@@ -1,0 +1,107 @@
+ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,
+        legend,input,textarea,p,blockquote,th,td{
+            margin:0;
+            padding:0;
+        }
+    body{
+        {#±³¾°Ðé»¯#}
+        {#font-family: 'Î¢ÈíÑÅºÚ';#}
+        {#background-size:cover;#}
+}
+    .backimage{
+        float: left;
+        height: 620px;
+        width: 1360px;
+        background:url({% static "images/sunrise2.jpg" %}) no-repeat;
+        -webkit-filter: blur(10px);
+    }
+    .login-form-i{
+        position: absolute;
+        margin: auto;
+        top: 0; left: 0; bottom: 0; right: 0;
+        border: 1px solid #000;
+        background:#000000;
+        border-radius: 5px;
+        width:240px;
+        height:280px;
+        padding:5px;
+        filter:alpha(Opacity=60);
+        -moz-opacity:0.6;
+        opacity: 0.6;
+    }
+    .login-form{
+        position: absolute;
+        margin: auto;
+        top: 0; left: 0; bottom: 0; right: 0;
+        border: 1px solid #000;
+        {#background:#000;#}
+        border-radius: 5px;
+        width:240px;
+        height:280px;
+        padding:5px;
+        {#filter:alpha(Opacity=60);#}
+        {#-moz-opacity:0.6;#}
+        {#opacity: 0.6;#}
+    }
+    .login-logo{
+        box-sizing: border-box;
+        width: 200px;
+        height: 36px;
+        background-color: #8e7d6c;
+        margin: 20px auto;
+        border: 1px solid #8e7d6c;
+        border-radius: 5px;
+        color:white;
+        line-height: 36px;
+        text-align: center;
+        opacity£ºnone;
+    }
+
+    .login-form .user-input{
+        box-sizing: border-box;
+        width: 200px;
+        height: 36px;
+        background-color: #8e7d6c;
+        margin: 20px auto;
+        border: 1px solid #8e7d6c;
+        border-radius: 5px;
+        color:white;
+        line-height: 36px;
+    }
+    .login-form .user-input input{
+        width: 150px;
+        height: 25px;
+        border:none;
+        outline:none;
+        font-size: 12px;
+        background-color: #8e7d6c !important;
+        text-indent: 5px;
+        color:white !important;
+        opacity: 2;
+    }
+    .login-form .user-input img{
+        box-sizing: border-box;
+        width: 25px;
+        height: 25px;
+        float: left;
+        margin: 5px 5px;
+        /*border-right: 2px solid white;*/
+
+    }
+    .login-form .login-in input{
+        box-sizing: border-box;
+        width: 65px;
+        height: 30px;
+        border: 1px solid rgba(57, 180, 254, 0.98);
+        border-radius: 5px;
+        margin-left: 35px;
+        margin-top: 20px;
+        outline:none;
+        cursor: pointer;
+        font: normal lighter 12px 'Î¢ÈíÑÅºÚ';
+        letter-spacing:12px;
+        line-height: 30px;
+        text-indent: 10px;
+        color:white;
+        background-color: rgba(57, 180, 254, 0.98);
+    }

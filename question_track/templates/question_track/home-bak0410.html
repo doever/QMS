@@ -1,0 +1,510 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QMS项目管理系统</title>
+    <script type="text/javascript" src="{% static "js/jquery-3.3.1.js" %}" ></script>
+    <style>
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,
+        legend,input,textarea,p,blockquote,th,td{
+            margin:0;
+            padding:0;
+        }
+        body{
+            font-size: 12px;
+            font-family: tahoma,arial,'微软雅黑';
+            color:#3C3C3C;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+            color: #CCC;
+            /*font-size: 10px;*/
+        }
+        {#清除浮动#}
+        {# 不给header高度，网页会变形 #}
+        .header{
+            height: 150px;
+            {#background-color: pink;#}
+            overflow: hidden;
+        }
+        .logo{
+            box-sizing: border-box;
+            width: 200px;
+            height: 125px;
+            /*background-color: #f00;*/
+            float: left;
+            {#background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523042968632&di=c5ef61c2b89657645cdda582d50afa62&imgtype=0&src=http%3A%2F%2Fb.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Dc43df76651da81cb4eb38bc96756fc20%2Fae51f3deb48f8c54fdbddabd3a292df5e0fe7f31.jpg) 20px 5px no-repeat;#}
+        }
+
+        .header .sou-footer{
+            box-sizing: border-box;
+            margin: 70px 60px 10px 90px;
+            /*浮动元素无法居中*/
+            /*margin: 0 auto;*/
+            width: 580px;
+            height: 50px;
+            /*background-color: pink;*/
+            /*border: 1px solid #ccc;*/
+            float: left;
+        }
+        /*.header .main-search .sou-header span{*/
+            /*display: inline-block;*/
+            /*float: left;*/
+            /*width: 40px;*/
+            /*height: 30px;*/
+            /*cursor:pointer;*/
+            /*background: url(images/jl.png) -15px -263px no-repeat;*/
+        /*}*/
+        .header .sou-footer #search_text{
+            box-sizing: border-box;
+            float: left;
+            width: 510px;
+            height: 46px;
+            padding: 4px 7px 2px 7px;
+            border: 1px solid #CCC;
+            border-radius: 15px;
+            margin-right: 20px;
+            /*background-color: #4d252e;*/
+
+        }
+        .header .sou-footer #search_click{
+            box-sizing: border-box;
+            float: left;
+            width: 46px;
+            height: 46px;
+            border: 1px solid #CCC;
+            border-radius: 15px;
+        }
+        .header .sou-footer input[type=text]{
+            float: left;
+            width: 490px;
+            height: 38px;
+            font:  lighter 20px '宋体';
+            color:#CCC;
+            border:none;
+            /*border-width: thin;*/
+            /*box-shadow: -2px 0 0 green;*/
+            text-indent: 2em;
+            /*-webkit-border-radius: 15px;*/
+            outline: none;
+           /*background-color: #4d252e;*/
+        }
+        .header .sou-footer input[type=image]{
+            box-sizing: border-box;
+            float: left;
+            width: 35px;
+            height: 35px;
+            /*text-align: center;*/
+            margin: 5px 5px;
+            outline:none;
+            /*margin-bottom: 20px;*/
+        }
+        .systemset{
+            width: 140px;
+            height: 120px;
+            /*background-color: peru;*/
+            float: right;
+        }
+        .systemset .home-set{
+            height: 30px;
+            /*background-color: lightblue;*/
+            margin-bottom: 8px;
+            border-left: 1px solid #CCC;
+            border-bottom: 1px solid #CCC;
+
+        }
+        .systemset .home-set .home-set-logo img{
+            width: 20px;
+            height: 20px;
+            float: right;
+            margin-top: 5px;
+            margin-right: 12px;
+            cursor:pointer;
+        }
+        .systemset .user{
+            /*border-top: 1px solid #CCC;*/
+            height: 30px;
+            /*background-color: firebrick;*/
+            /*margin-bottom: 0px;*/
+        }
+        .systemset .user span {
+            display: inline-block;
+            float: left;
+            width: 70px;
+            height: 20px;
+            /*margin:5px 20px;*/
+            /*text-align: center;*/
+            text-indent: 1em;
+            font-size: 12px;
+            font-weight: lighter;
+            line-height: 30px;
+        }
+        #user{
+            color:red;
+        }
+        .systemset .time{
+            height: 30px;
+            /*background-color: aquamarine;*/
+        }
+        /*正文部分*/
+        .eye .ear{
+            margin-top: 10px;
+            width: 200px;
+            height: 500px;
+            float: left;
+            {#background-color: #00f;#}
+            /*overflow: hidden;*/
+        }
+        .eye .ear .reserve{
+            width: 100%;
+            height: 100px;
+            {#background-color: gold;#}
+        }
+        .eye .ear .search-i{
+            box-sizing: border-box;
+            /*margin-top: 30px;*/
+            width: 100%;
+            height: 350px;
+            /*background-color: orangered;*/
+        }
+        .eye .ear .search-i .search-body{
+            height: 300px;
+            width: 180px;
+            /*background-color: yellow;*/
+            float: left;
+        }
+        input[type=date]::-webkit-inner-spin-button { visibility: hidden; }
+        input[type=date]::-webkit-clear-button{display:none;}
+        .eye .ear .search-i .search-body div input{
+            height: 25px;
+            width: 120px;
+            border:none;
+            outline:none;
+            margin-left: 8px;
+            color:#aaa;
+            text-align: center;
+        }
+        .eye .ear .search-i .search-body span{
+            display: block;
+            height: 20px;
+            text-indent: 1em;
+            color:#aaa;
+        }
+        .eye .ear .search-i .search-body div{
+            border: 1px solid #999;
+            border-radius: 8px;
+            box-sizing: border-box;
+            width: 140px;
+            height: 32px;
+            /*background-color: orange;*/
+            margin-left: 40px;
+            margin-bottom: 10px;
+            line-height: 30px;
+        }
+        .eye .ear .search-i .search-body input{
+            box-sizing: border-box;
+            margin-left: 37px;
+            width: 50px;
+            height: 25px;
+            outline: none;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            background-color: #fff;
+            color:#aaa;
+            font-weight: bold;
+            line-height: 25px;
+            cursor: pointer;
+        }
+        .eye .ear .search-i .search-arrow{
+            height: 20px;
+            width: 20px;
+            margin-top: 86px;
+            /*border: 1px solid #000;*/
+            /*background-color: purple;*/
+            float: left;
+        }
+        .eye .ear .search-i .search-arrow img {
+            height: 20px;
+            width: 20px;
+            cursor:pointer;
+            border: 1px solid #aaa;
+            /*background-image: url(images/iright.png);*/
+        }
+        .eye .content{
+            box-sizing: border-box;
+            margin-top: 10px;
+            width: 670px;
+            height: 500px;
+            float: left;
+            /*background-color: #0fC;*/
+            /*overflow: hidden;*/
+        }
+        .eye .content .nav{
+            width: 100%;
+            height: 30px;
+            {#min-width:906px;#}
+            overflow: hidden;
+            {#overflow-x:auto;#}
+            /*background-color: deeppink;*/
+        }
+        .eye .content .nav ul li{
+            float: left;
+            width: 100px;
+            height: 30px;
+            margin-right: 42px;
+            border: 1px solid #CCC;
+            border-radius: 15px;
+            font-size: 15px;
+            text-align: center;
+            line-height: 30px;
+        }
+        .eye .content .nav ul li a{
+            color:white;
+        }
+        .eye .content .nav ul li:nth-of-type(1){
+            background-color: #69cffa;
+        }
+        .eye .content .nav ul li:nth-of-type(2){
+            background-color: #f54e91;
+        }
+        .eye .content .nav ul li:nth-of-type(3){
+            background-color: #83cc2b;
+        }
+        .eye .content .nav ul li:nth-of-type(4){
+            background-color: #ff8040;
+        }
+        .eye .content .task{
+            width: 100%;
+            height: 40px;
+            {#background-color: pink;#}
+            overflow: hidden;
+        }
+        .eye .content .task .task-li{
+            width: 100px;
+            height: 20px;
+            border: 1px solid #AAA;
+            border-radius: 3px;
+            float: left;
+            margin-right: 3px;
+            margin-top: 17px;
+            background-color: #69cef9;
+            font:normal small-caps lighter 12px/20px '微软雅黑',verdana;
+            text-align: center;
+            color:white;
+            cursor: pointer;
+            {#line-height: 20px;#}
+        }
+        .eye .content .question{
+            box-sizing: border-box;
+            width: 100%;
+            height: 380px;
+            background-color: purple;
+            border: 1px solid #CCCCCC;
+        }
+        .eye .content .question .question-text{
+            width: 100%;
+            height: 350px;
+            background-color: #0f0;
+        }
+        .eye .content .question .question-text .question-list{
+            box-sizing: border-box;
+            border-bottom: 1px solid #CCC;
+            width: 100%;
+            height: 33.3%;
+            background-color: pink;
+        }
+        .eye .content .question .question-text .question-list div{
+
+        }
+        .eye .content .question .question-page{
+            width: 100%;
+            height: 30px;
+            background-color: yellow;
+        }
+        .eye .slideshow{
+            box-sizing: border-box;
+            margin-top: 10px;
+            width: 200px;
+            height: 450px;
+            float: left;
+            background-color: #af2;
+        }
+    </style>
+</head>
+<body onload="showTime()">
+<div class="header">
+    <!--logo部分-->
+    <div class="logo"></div>
+    <!--大搜索块-->
+    <!--<div class="main-search">-->
+        <!--<div class="sou-header">-->
+            <!--<span></span>-->
+        <!--</div>-->
+        <div class="sou-footer">
+
+            <form action="#" name="search_form">
+                <div id="search_text" class="search">
+                    <label><input type="text" name="search_main" value="开始美好的一天吧" id="in1"></label>
+                </div>
+                <div id="search_click" class="search">
+                    <input type="image" src="{% static "images/isearch.png" %}" alt="sou">
+                </div>
+            </form>
+        </div>
+    <!--</div>-->
+    <!--系统设置部分-->
+    <div class="systemset">
+        <div class="home-set">
+            <div class="home-set-logo">
+                <img src="{% static "images/ihome.png" %}" alt="home">
+            </div>
+            <div class="home-set-logo">
+                <img src="{% static "images/imessage.png" %}" alt="mess">
+            </div>
+            <div class="home-set-logo">
+                <img src="{% static "images/icode.png" %}" alt="code">
+            </div>
+            <div class="home-set-logo">
+                <img src="{% static "images/iset.png" %}" alt="iset">
+            </div>
+        </div>
+        <div class="user">
+            <span>下午好！</span><span id="user">chen</span>
+        </div>
+        <div class="time" id="time">
+
+        </div>
+    </div>
+</div>
+<div class="eye" style="width:100%;">
+    <!--左边区域-->
+    <div class="ear" style="width:18%;">
+        <!--预留区域-->
+        <div class="reserve"></div>
+        <!--搜索框-->
+        <div class="search-i">
+            <div class="search-body">
+                <form action="">
+                    <span>创建日期:</span>
+                    <div class="search">
+                        <input type="date" name="" value="2018-01-01">
+                    </div>
+                    <span>解决日期:</span>
+                    <div class="search">
+                        <input type="date" name="" value="2018-02-01">
+                    </div>
+                    <span>负责人：</span>
+                    <div class="search">
+                        <input type="text" name="">
+                    </div>
+                    <input type="submit" value="提交" class="search">
+                    <input type="reset" value="重置" class="search">
+                </form>
+            </div>
+            <div class="search-arrow">
+                <img src="{% static "images/iright.png" %}" alt="" onclick="" id="search-arrow">
+            </div>
+        </div>
+    </div>
+    <!--导航-->
+    <div class="content" style="width:62%">
+        <div class="nav">
+            <ul>
+                <li class="nav-li"><a href="#">首页</a></li>
+                <li class="nav-li"><a href="#">项目</a></li>
+                <li class="nav-li"><a href="#">问题</a></li>
+                <li class="nav-li"><a href="#">帮助</a></li>
+            </ul>
+        </div>
+        <div class="task">
+            <ul>
+                <li class="task-li"><span>所有任务</span></li>
+                <li class="task-li"><span>我发起的</span></li>
+                <li class="task-li"><span>我参与的</span></li>
+            </ul>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <div class="question-list">
+                    <div class="list-head"></div>
+                    <div class="list-foot"></div>
+                </div>
+                <div class="question-list">
+                    <div class="list-head"></div>
+                    <div class="list-foot"></div>
+                </div>
+                <div class="question-list">
+                    <div class="list-head"></div>
+                    <div class="list-foot"></div>
+                </div>
+            </div>
+            <div class="question-page"></div>
+        </div>
+
+
+    </div>
+    <!--轮播图-->
+    <div class="slideshow" style="width:20%"></div>
+</div>
+<script>
+     // $(function(){
+         $(document).ready(function(){
+                $(".search").on({
+                    mouseover : function(){
+                        // alert('hehe')
+                        $(this).css({"borderColor":'skyblue',"boxShadow":"0 0 2px 2px deepskyblue"});
+                        // jquery选择后代元素改变value
+                        // $(this).children("input").val('');
+                        // document.getElementById('in1').value='';
+                    } ,
+                    mouseout : function(){
+                         $(this).css({"borderColor":'#CCC',"boxShadow":"0 0 0 0 deepskyblue"});
+                        // document.getElementById('in1').value='';
+
+                    }
+                }) ;
+                    });
+            // }) ;
+
+$(document).ready(function(){
+  $("#search-arrow").click(function(){
+    $(".search-body").animate({
+      width:'toggle'
+    });
+  });
+});
+
+
+// 时间设置
+ function showTime() {
+//创建Date对象
+var today = new Date();
+//分别取出年、月、日、时、分、秒
+var year = today.getFullYear();
+var month = today.getMonth()+1;
+var day = today.getDate();
+var hours = today.getHours();
+var minutes = today.getMinutes();
+var seconds = today.getSeconds();
+//如果是单个数，则前面补0
+month  = month<10  ? "0"+month : month;
+day  = day <10  ? "0"+day : day;
+hours  = hours<10  ? "0"+hours : hours;
+minutes = minutes<10 ? "0"+minutes : minutes;
+seconds = seconds<10 ? "0"+seconds : seconds;
+//构建要输出的字符串
+var str = year+"年"+month+"月"+day+"日 "+hours+":"+minutes+":"+seconds;
+//获取id=result的对象
+var obj = document.getElementById("time");
+//将str的内容写入到id=result的<div>中去
+obj.innerHTML = str;
+//延时器
+window.setTimeout("showTime()",1000);
+    }
+</script>
+</body>
+</html>
