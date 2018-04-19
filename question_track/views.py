@@ -40,3 +40,5 @@ def resginter():
 
 def project_detils():
     pass
+def report():
+    pass
