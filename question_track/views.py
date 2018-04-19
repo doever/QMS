@@ -7,7 +7,7 @@ from question_track.models import Question,QuestionClass,QuestionState,Solution
 # Create your views here.
 def user_login(request):
     return render(request, 'question_track/login.html')
-
+#test
 # @csrf_protect
 def qms_main(request):
     questions = Question.objects.all()[0:3]
