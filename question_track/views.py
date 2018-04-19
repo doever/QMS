@@ -35,8 +35,13 @@ def qms_main(request):
     print('redirect')
     return HttpResponseRedirect('login')
 
-def resginter():
-    pass
+def resginter(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/home')
+    state=None
+    if request.method == 'POST':
+        pass
+
 
 def project_detils():
     pass
