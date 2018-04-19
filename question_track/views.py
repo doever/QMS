@@ -37,3 +37,6 @@ def qms_main(request):
 
 def resginter():
     pass
+
+def project_detils():
+    pass
