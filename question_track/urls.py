@@ -10,6 +10,7 @@ urlpatterns = [
                   # url(r'^$', views.index, name='index'),
                   url(r'^login/', views.user_login, name='user_login'),
                   url(r'^home$', views.qms_main, name='qms_main'),
+                  url(r'^resginter/$',views.resginter,name='resginter'),
                   # url(r'^logout/', views.user_logout, name='user_logout'),
                   # url(r'^register/', views.user_register, name='user_register'),
                   # url(r'^set_password/', views.set_password, name='set_password'),
