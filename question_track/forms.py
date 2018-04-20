@@ -4,48 +4,66 @@
 from django import forms
 
 class RegisterForm(forms.Form):
-    username=forms.CharField(
-        max_length=16,
-        label=u'用户名',
+    username = forms.CharField(
+        label=u'用户名/手机号码：',
         widget=forms.TextInput(attrs={
-            'class':'form-register',
-            'name':'username',
-            'id':'id_username',
-            'placeholder':'username',
-        })
-    )
-    CHIOCES=[
-        (u'男',u'男'),
-        (u'女',u'女'),
-    ]
-    sex=forms.ChoiceField(
-        label=u'',
-        chioces=CHIOCES,
-        widget=forms.RadioSelect(),
-        initial=u'男',
-    )
-    password=forms.CharField(
-        lable=u'密码',
-        widget=forms.PasswordInput(attrs={
-            'class':'form-register',
-            'id':'id_password',
+            'class': 'form-control',
+            'name': 'username',
+            'id': 'id_username',
         }),
     )
-    re_password=forms.CharField(
-        label=u'重复密码',
-        widget=forms.PasswordInput(attrs={
-            'class':'form-register',
-            'name':'re_password',
-        })
-    )
-    email=forms.CharField(
-        label=u'邮箱',
-        widget=forms.EmailField(attrs={
-            'class':'form-register',
-            'name':'email',
+    name = forms.CharField(
+        label=u'名字：',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'name': 'name',
+            'id': 'id_name',
         }),
-        required=False,
     )
+
+# class RegisterForm(forms.Form):
+#     username=forms.CharField(
+#         max_length=16,
+#         label=u'用户名',
+#         widget=forms.TextInput(attrs={
+#             'class':'form-register',
+#             'name':'username',
+#             'id':'id_username',
+#             'placeholder':'username',
+#         })
+#     )
+#     CHOICES=[
+#         (u'男',u'男'),
+#         (u'女',u'女'),
+#     ]
+#     sex=forms.ChoiceField(
+#         label=u'',
+#         choices=CHOICES,
+#         widget=forms.RadioSelect(),
+#         initial=u'男',
+#     )
+#     password=forms.CharField(
+#         label=u'密码',
+#         widget=forms.PasswordInput(attrs={
+#             'class':'form-register',
+#             'id':'id_password',
+#         }),
+#     )
+#     re_password=forms.CharField(
+#         label=u'重复密码',
+#         widget=forms.PasswordInput(attrs={
+#             'class':'form-register',
+#             'name':'re_password',
+#         })
+#     )
+#     email=forms.CharField(
+#         label=u'邮箱',
+#         widget=forms.EmailField(attrs={
+#             'class':'form-register',
+#             'name':'email',
+#         }),
+#         required=False,
+#     )
 
 class LoginForm(forms.Form):
     username=forms.CharField(
@@ -56,4 +74,4 @@ class LoginForm(forms.Form):
             'id':'id_username',
         })
     )
-    password=forms.CharField()
+    # password=forms.CharField()

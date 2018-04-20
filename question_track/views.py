@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidde
 from django.contrib import auth
 from django.contrib.auth.models import User
 from question_track.models import Question,QuestionClass,QuestionState,Solution
+from question_track.forms import *
 # Create your views here.
 def user_login(request):
     return render(request, 'question_track/login.html')
@@ -35,12 +36,19 @@ def qms_main(request):
     print('redirect')
     return HttpResponseRedirect('login')
 
-def resginter(request):
-    if request.user.is_authenticated():
-        return HttpResponseRedirect('/home')
+def register(request):
+    # if request.user.is_authenticated():
+    #     return HttpResponseRedirect('/home')
     state=None
+    registerForm=RegisterForm()
     if request.method == 'POST':
-        pass
+        print('post')
+    content={
+        'state':state,
+        'registerFrom':registerForm,
+    }
+    print(registerForm)
+    return render(request, 'question_track/register.html',content)
 
 def project_detils():
     pass

@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{#    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">#}
+    <title>PMS用户注册</title>
+    <script type="text/javascript" src="{% static '/js/jquery-3.3.1.js' %}"></script>
+    <style>
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,
+        legend,input,textarea,p,blockquote,th,td{
+            margin:0;
+            padding:0;
+        }
+    .backimage{
+        float: left;
+        height: 620px;
+        width: 1360px;
+        background:url({% static "images/sunrise2.jpg" %}) no-repeat;
+        -webkit-filter: blur(10px);
+    }
+    .login-form-i{
+        position: absolute;
+        margin: auto;
+        top: 0; bottom: 0; right: 80px;
+        border: 1px solid #000;
+        background:#000000;
+        box-sizing: border-box;
+        border-radius: 5px;
+        width:240px;
+        height:380px;
+        padding:5px;
+        filter:alpha(Opacity=60);
+        -moz-opacity:0.6;
+        opacity: 0.6;
+    }
+    .login-form{
+        position: absolute;
+        margin: auto;
+        top: 0; bottom: 0; right: 80px;
+        border: 1px solid #000;
+        box-sizing: border-box;
+        {#background:#000;#}
+        border-radius: 5px;
+        width:240px;
+        height:380px;
+        padding:5px;
+    }
+    </style>
+</head>
+<body>
+    <div class="backimage"></div>
+    <div class="login-form-i"></div>
+    <form action="#" method="post">
+        {% csrf_token %}
+    <div class="login-form">
+        {% for field in registerForm %}
+            <div class="form-group">
+                <label class="col-md-3 control-label">{{ field.label }}</label>
+                <div class="col-md-9">
+                    {{ field }}
+{#                    {% if field.auto_id == 'id_username' %}#}
+{#                        <span class="help-block">用于登陆，手机号码</span>#}
+{#                    {% endif %}#}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    </form>
+</body>
+</html>
