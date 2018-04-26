@@ -5,7 +5,63 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from question_track.models import Question,QuestionClass,QuestionState,Solution
 from question_track.forms import *
+import json
+
 # Create your views here.
+class APIError(Exception):
+    def __init__(self, error,data,message):
+        super().__init__(self)
+        self.error = error
+        self.data=data
+        self.message=message
+
+    def __str__(self):
+        return self.error
+
+def api(func):
+  # @functools.wraps(func)
+    def _wrapper(*args, **kw):
+        try:
+            r = json.dumps(func(*args **kw))
+            if not r:
+                raise APIError('-1','data','用户不能为空')
+        except APIError as e:
+            r = json.dumps(dict(error=e.error, data=e.data, message=e.message))
+        except Exception as e:
+            r = json.dumps(dict(error='internalerror', data=e.__class__.__name__, message='服务器内部错误'))
+        # ctx.response.content_type = 'application/json'
+        return r
+    return _wrapper
+
+@api
+# @get('/api/users')
+def api_get_users():
+  users = User.find_by('order by created_at desc')
+  return dict(users=users)
+
+#######################
+
+def get_users(request):
+
+    response = {'status':True,'data':None,'msg':None}
+    try:
+        user_list = User.objects.values('id','username')
+        # user_list = list(user_list),如果正确,则将user_list的数值赋值给data
+        if user_list is None:
+            response['msg']='null'
+        response['data'] = list(user_list)
+    except Exception as e:
+        response['status'] = False
+        response['msg'] = str(e)
+
+    data = json.dumps(response)
+    return HttpResponse(data)
+
+
+
+
+
+
 def user_login(request):
     return render(request, 'question_track/login.html')
 #test
@@ -41,13 +97,23 @@ def register(request):
     #     return HttpResponseRedirect('/home')
     state=None
     registerForm=RegisterForm()
+    print('fangwenzhuce')
     if request.method == 'POST':
         print('post')
+        registerForm=RegisterForm(request.post)
+        if registerForm.is_valid():
+            print(registerForm.cleaned_data)
+            print('验证通过')
+            return render(request, 'question_track/login.html')
+        else:
+            print('验证失败')
+            print(registerForm.errors)
+            return render(request, 'question_track/register.html', {"registerFrom": registerForm})
     content={
         'state':state,
         'registerFrom':registerForm,
     }
-    print(registerForm)
+    # print(registerForm)
     return render(request, 'question_track/register.html',content)
 
 def project_detils():
