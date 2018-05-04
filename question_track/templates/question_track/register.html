@@ -78,4 +78,34 @@
     </div>
     </form>
 </body>
+ <script>
+    function SubmitForm() {
+        var input_dict = {};
+        $('input').each(function () {
+            var v = $(this).val();
+            var n = $(this).attr('name');
+            input_dict[n] = v;
+        });
+        $.ajax({
+            url: '/register/',
+            type: 'POST',
+            data: input_dict,
+            dataType: 'json',
+            success: function (callback) {
+               if(callback.status){
+                    location.href = '/index';
+               }else{
+                   $.each(callback.message,function (k,v) {
+                       var tag = document.createElement('span');
+                       tag.className = 'error-message';
+                       tag.innerText = v[0].message;
+                       $('input[name="' + k + '"]').after(tag);
+                   })
+
+
+               }
+            }
+        })
+    }
+ </script>
 </html>

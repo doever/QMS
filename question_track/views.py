@@ -34,9 +34,10 @@ def api(func):
     return _wrapper
 
 @api
-# @get('/api/users')
 def api_get_users():
-  users = User.find_by('order by created_at desc')
+  users = User.objects.raw('select * from auth_user')
+  print(users)
+  print(dict(users=users))
   return dict(users=users)
 
 #######################
