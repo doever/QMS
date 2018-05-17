@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>applynew_report</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        h3{
+            text-align: center;
+        }
+        #applynewview{
+            width: 600px;
+            height: 450px;
+            margin: 0 auto;
+        }
+    </style>
+    <script type="text/javascript" src="{% static "/js/echarts.min.js" %}"></script>
+</head>
+<body>
+<h3>月度</h3>
+<div id="applynewview"></div>
+
+<script>
+    var applynewChart=echarts.init(document.getElementById('applynewview'));
+    var xAxisData = {{ axis|safe }};
+    var data1 = {{ create|safe }};
+    var data2 = {{ install|safe }};
+
+    option = {
+        title: {
+            text: '开户安装量对比'
+        },
+        legend: {
+
+            data: ['开户量', '安装量'],
+            align: 'left'
+        },
+        toolbox: {
+            // y: 'bottom',
+            feature: {
+                magicType: {
+                    type: ['stack', 'tiled']
+                },
+                dataView: {},
+                saveAsImage: {
+                    pixelRatio: 2
+                }
+            }
+        },
+        tooltip: {},
+        xAxis: {
+            data: xAxisData,
+            silent: false,
+            splitLine: {
+                show: false
+            }
+        },
+        yAxis: {
+        },
+        series: [{
+            name: '开户量',
+            type: 'bar',
+            data: data1,
+            animationDelay: function (idx) {
+                return idx * 10;
+            }
+        }, {
+            name: '安装量',
+            type: 'bar',
+            data: data2,
+            animationDelay: function (idx) {
+                return idx * 10 + 100;
+            }
+        }],
+        animationEasing: 'elasticOut',
+        animationDelayUpdate: function (idx) {
+            return idx * 5;
+        }
+    };
+    applynewChart.setOption(option);
+</script>
+</body>
+</html>

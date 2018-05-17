@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,reverse
 from question_track.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.contrib import auth
 from django.contrib.auth.models import User
-from question_track.models import Question,QuestionClass,QuestionState,Solution
+from django.db import connection
+
+from question_track.models import Question,QuestionClass,QuestionState,Solution,Applynew
 from question_track.forms import *
 import json
 
@@ -117,7 +119,35 @@ def register(request):
     # print(registerForm)
     return render(request, 'question_track/register.html',content)
 
-def project_detils():
+def project_detils(request):
     pass
-def report():
-    pass
+def report(request):
+    if request.method == 'POST':
+        return render(request, 'question_track/report.html')
+    else:
+        sql='''
+            select date_format(creayedate, '%Y-%m-%d') as date,
+            count(*) as createcount,
+             cast(sum(case when billstate = 150 then 1 else 0 end) as signed) as installcount
+            from question_track_applynew 
+            where creayedate between '2018-03-01 00:00:00' and '2018-4-1 00:00:00'
+            group by date_format(creayedate, '%Y-%m-%d')
+            '''
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        rows=cursor.fetchall()
+        axis=[]
+        create=[]
+        install=[]
+        for row in rows:
+            axis.append(row[0])
+            create.append(row[1])
+            install.append(row[2])
+        context={
+            'axis':json.dumps(list(axis)),
+            'create':json.dumps(list(create)),
+            'install':json.dumps(list(install)),
+        }
+        return render(request,'question_track/report.html',context=context)
+
+
