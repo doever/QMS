@@ -18,8 +18,8 @@ class Documentname(models.Model):
 
 class QuestionState(models.Model):
     class Meta:
-        verbose_name = '状态'
-        verbose_name_plural = '状态'
+        verbose_name = '项目状态'
+        verbose_name_plural = '项目状态'
     statetype = models.CharField(max_length=100,null=False)
     statecode= models.IntegerField(default=1,unique=True)
     statename = models.CharField(max_length=100,db_index=True)
