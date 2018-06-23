@@ -1,18 +1,14 @@
 #!/usr/bin/python3
 from django.conf.urls import url
-from django.contrib.staticfiles import views as static_views
-from django.conf.urls.static import static
-from django.conf import settings
+from question_track import views
 
-import question_track.views as views
-
+app_name = 'question_track'
 urlpatterns = [
-                  # url(r'^$', views.index, name='index'),
-                  url(r'^login/', views.user_login, name='user_login'),
-                  url(r'^home$', views.qms_main, name='qms_main'),
-                  url(r'^register/',views.register,name='register'),
-                  url(r'^project_detils/$',views.register,name='project_detils'),
-                  url(r'^report/',views.report,name='report'),
+                  url(r'^$', views.Index.as_view(), name='index'),
+                  url(r'^login/', views.Login.as_view(), name='login'),
+                  url(r'^register/',views.Register.as_view(),name='register'),
+                  # url(r'^project_detils/$',views.register,name='project_detils'),
+                  # url(r'^report/',views.report,name='report'),
                   # url(r'^logout/', views.user_logout, name='user_logout'),
                   # url(r'^register/', views.user_register, name='user_register'),
                   # url(r'^set_password/', views.set_password, name='set_password'),
@@ -22,4 +18,3 @@ urlpatterns = [
                   # url(r'^statistics/', views.statistics, name='statistics'),
                   # url(r'^about/', views.about, name='about'),
               ]
-              # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

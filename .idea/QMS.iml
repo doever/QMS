@@ -26,8 +26,14 @@
     <orderEntry type="module" module-name="web_design" />
     <orderEntry type="module" module-name="CRMTOOL" />
     <orderEntry type="module" module-name="oztec" />
+    <orderEntry type="module" module-name="myloop" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/question_track/templates" />
+      </list>
+    </option>
   </component>
 </module>

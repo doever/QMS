@@ -2,26 +2,23 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
+from django.contrib.auth.models import User
 
-# class RegisterForm(forms.Form):
-#     username = forms.CharField(
-#         label=u'用户名/手机号码：',
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'name': 'username',
-#             'id': 'id_username',
-#         }),
-#         required=True,
-#         error_messages={'required':'不能为空','invalid':'格式错误'}
-#     )
-#     name = forms.CharField(
-#         label=u'名字：',
-#         widget=forms.TextInput(attrs={
-#             'class': 'form-control',
-#             'name': 'name',
-#             'id': 'id_name',
-#         }),
-#     )
+class LoginForm(forms.Form):
+    username=forms.CharField(error_messages={'require':'请输入用户名','invalid':'请输入合法的用户名'})
+    password=forms.CharField(error_messages={'require':'请输入密码'})
+
+    def clean(self):
+        clean_data = super(LoginForm, self).clean()
+        username = clean_data.get('username')
+        password = clean_data.get('password')
+        user = User.objects.filter(username=username,password=password).first()
+        clean_data.update({'id':user.id})
+        if user:
+            return clean_data
+        else:
+            raise forms.ValidationError(message='用户名或密码错误')
+
 
 class RegisterForm(forms.Form):
     username=forms.CharField(
