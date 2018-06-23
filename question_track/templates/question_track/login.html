@@ -19,8 +19,9 @@
     .backimage{
         float: left;
         height: 620px;
-        width: 1360px;
+        width: 100%;
         background:url({% static "images/sunrise2.jpg" %}) no-repeat;
+        background-size:120%;
         -webkit-filter: blur(10px);
     }
     .login-form-i{
@@ -47,9 +48,6 @@
         width:240px;
         height:280px;
         padding:5px;
-        {#filter:alpha(Opacity=60);#}
-        {#-moz-opacity:0.6;#}
-        {#opacity: 0.6;#}
     }
     .login-logo{
         box-sizing: border-box;
@@ -60,9 +58,9 @@
         border: 1px solid #8e7d6c;
         border-radius: 5px;
         color:white;
-        line-height: 36px;
-        text-align: center;
-        opacity：none;
+        line-height:36px;
+        text-align:center;
+        opacity:1;
     }
 
     .login-form .user-input{
@@ -113,7 +111,6 @@
         color:white;
         background-color: rgba(57, 180, 254, 0.98);
     }
-/* CSS注释说明：这里对CSS代码换行是为了让代码在此我要中显示完整，换行后CSS效果不受影响 */
 </style>
 </head>
 
@@ -201,6 +198,10 @@
                 }
             })
     });
+    var oDiv=document.getElementById('div1');
+    var oDiv2=oDiv.getElementById('div2');
 </script>
+
+
 </body>
 </html>

@@ -8,6 +8,7 @@
         <option name="manageScript" value="$MODULE_DIR$/manage.py" />
         <option name="environment" value="&lt;map/&gt;" />
         <option name="doNotUseTestRunner" value="false" />
+        <option name="trackFilePattern" value="migrations" />
       </configuration>
     </facet>
   </component>
@@ -17,18 +18,21 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="R User Library" level="project" />
     <orderEntry type="library" name="R Skeletons" level="application" />
-    <orderEntry type="module" module-name="CRMTOOL" />
-    <orderEntry type="module" module-name="mysite" />
     <orderEntry type="module" module-name="Slackers-master" />
     <orderEntry type="module" module-name="淘宝爬虫" />
-    <orderEntry type="module" module-name="服务器监控" />
-    <orderEntry type="module" module-name="model_test" />
+    <orderEntry type="module" module-name="unit_test" />
+    <orderEntry type="module" module-name="Slackers-master" />
+    <orderEntry type="module" module-name="fullpart" />
+    <orderEntry type="module" module-name="web_design" />
+    <orderEntry type="module" module-name="CRMTOOL" />
+    <orderEntry type="module" module-name="oztec" />
+    <orderEntry type="module" module-name="myloop" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="D:/QMS\templates" />
+        <option value="$MODULE_DIR$/question_track/templates" />
       </list>
     </option>
   </component>

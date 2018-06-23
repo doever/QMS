@@ -1,0 +1,59 @@
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,
+        legend,input,textarea,p,blockquote,th,td{
+            margin:0;
+            padding:0;
+        }
+        body{
+            font-size: 12px;
+            font-family: tahoma,arial,'微软雅黑';
+            color:#3C3C3C;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+            color: #CCC;
+            /*font-size: 10px;*/
+        }
+        .head{
+            width: 100%;
+            height: 50px;
+            font-size: 12px;
+            background-color: #293c55;
+        }
+        .head .topic{
+            width: 150px;
+            float: left;
+        }
+        .head .topic span{
+            font-size: 15px;
+            font-weight: normal;
+            margin: 0 auto;
+            color:#FFF;
+            line-height: 50px;
+        }
+        .head .nav{
+            float: left;
+            height: 100%;
+        }
+        .head .nav ul li{
+            float: left;
+            width: 68px;
+            height: 100%;
+            text-align: center;
+        }
+        .head .nav ul li a{
+            font-size: 15px;
+            width: 68px;
+            height: 100%;
+            line-height: 50px;
+            margin: 0 auto;
+        }
+        .head .system{
+            height: 100%;
+        }
+        #applynewview{
+            width: 500px;
+            height: 300px;
+        }
