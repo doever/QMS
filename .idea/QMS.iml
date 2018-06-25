@@ -33,6 +33,7 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/question_track/templates" />
+        <option value="$MODULE_DIR$/front/templates" />
       </list>
     </option>
   </component>

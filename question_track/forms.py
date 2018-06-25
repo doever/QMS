@@ -13,8 +13,8 @@ class LoginForm(forms.Form):
         username = clean_data.get('username')
         password = clean_data.get('password')
         user = User.objects.filter(username=username,password=password).first()
-        clean_data.update({'id':user.id})
         if user:
+            clean_data.update({'id':user.id})
             return clean_data
         else:
             raise forms.ValidationError(message='用户名或密码错误')

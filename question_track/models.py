@@ -4,13 +4,13 @@ import datetime
 # Create your models here.
 class Documentname(models.Model):
     class Meta:
-        verbose_name='文档字典'
-        verbose_name_plural='文档字典'
+        verbose_name='字典'
+        verbose_name_plural='字典'
 
     doctype = models.CharField(max_length=100,null=False)
     docname = models.CharField(max_length=100,unique=True,null=False,db_index=True)
     fatherid = models.IntegerField()
-    createdate = models.DateTimeField(null=False, auto_now=True, db_index=True)
+    createdate = models.DateTimeField(null=False, auto_now_add=True, db_index=True)
 
     def __str__(self):
         return self.docname
@@ -18,14 +18,14 @@ class Documentname(models.Model):
 
 class QuestionState(models.Model):
     class Meta:
-        verbose_name = '项目状态'
-        verbose_name_plural = '项目状态'
+        verbose_name = '状态'
+        verbose_name_plural = '状态'
     statetype = models.CharField(max_length=100,null=False)
     statecode= models.IntegerField(default=1,unique=True)
     statename = models.CharField(max_length=100,db_index=True)
     fatherid = models.IntegerField()
     allow = models.CharField(max_length=200)
-    createdate = models.DateTimeField(null=False, auto_now=True, db_index=True)
+    createdate = models.DateTimeField(null=False, auto_now_add=True, db_index=True)
 
     def __str__(self):
         return self.statename
@@ -37,7 +37,7 @@ class QuestionClass(models.Model):
 
     classtype = models.CharField(max_length=100)
     classname = models.CharField(max_length=100,db_index=True)
-    createdate = models.DateTimeField(null=False, auto_now=True, db_index=True)
+    createdate = models.DateTimeField(null=False, auto_now_add=True, db_index=True)
 
     def __str__(self):
         return self.classname
@@ -85,7 +85,7 @@ class Solution(models.Model):
 
     questionid = models.ForeignKey(Question,on_delete=models.CASCADE)
     creator = models.ForeignKey(User,on_delete=models.CASCADE)
-    createdate = models.DateTimeField(auto_now=True,db_index=True)
+    createdate = models.DateTimeField(auto_now_add=True,db_index=True)
     solutionname = models.CharField(max_length=200, unique=True,blank=False)
     solutiondesc = models.TextField(max_length=1000,null=False)
     isdel = models.BooleanField(default=False)
@@ -109,7 +109,7 @@ class Applynew(models.Model):
     isspecial = models.CharField(max_length=10,null=True)
     agent = models.IntegerField(null=True)
     areacode = models.CharField(max_length=30,db_index=True,null=True)
-    creayedate = models.DateTimeField(db_index=True,null=True)
+    createdate = models.DateTimeField(auto_now_add=True,db_index=True,null=True)
     installdate = models.DateTimeField(db_index=True,null=True)
     a3 = models.CharField(max_length=10,null=True)
     A7 = models.CharField(max_length=10,null=True)

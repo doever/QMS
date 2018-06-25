@@ -24,8 +24,12 @@ class Login(View):
             request.session['user_id'] = forms.cleaned_data.get('id')
             return redirect(reverse("question_track:index"))
         else:
+            context = {
+                'username':forms.cleaned_data.get('username'),
+                'password':forms.cleaned_data.get('password'),
+            }
             print(forms.errors)
-            return render(request,'question_track/login.html')
+            return render(request,'question_track/login.html',context=context)
 
 
 class Register(View):
