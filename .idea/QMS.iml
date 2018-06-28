@@ -18,10 +18,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="R User Library" level="project" />
     <orderEntry type="library" name="R Skeletons" level="application" />
-    <orderEntry type="module" module-name="Slackers-master" />
     <orderEntry type="module" module-name="淘宝爬虫" />
     <orderEntry type="module" module-name="unit_test" />
-    <orderEntry type="module" module-name="Slackers-master" />
     <orderEntry type="module" module-name="fullpart" />
     <orderEntry type="module" module-name="web_design" />
     <orderEntry type="module" module-name="CRMTOOL" />

@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8" />
 <title>用户登录</title>
-<script type="text/javascript" src="{% static "/js/common/jquery-3.3.1.min..js" %}" ></script>
+<script type="text/javascript" src="{% static 'js/common/jquery-3.1.1.min.js' %}" ></script>
 <style>
     body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,
         legend,input,textarea,p,blockquote,th,td{
@@ -20,7 +20,7 @@
         float: left;
         height: 620px;
         width: 100%;
-        background:url({% static "images/sunrise2.jpg" %}) no-repeat;
+        background:url({% static 'images/sunrise2.jpg' %}) no-repeat;
         background-size:120%;
         -webkit-filter: blur(10px);
     }
@@ -120,15 +120,15 @@
 {#form透明层#}
 <div class="login-form-i"></div>
 <div class="login-form">
-    <form action="/home" method="post">
-        {%csrf_token%}
+    <form action="" method="post">
+        {% csrf_token %}
         <div class="login-logo">QMS系统登录</div>
         <div class="user-input shadow">
-            <img src="{% static "images/user.png" %}" alt="">
+            <img src="{% static 'images/user.png' %}" alt="">
             <input id="username" class="int" type="text" name="username" value="用户名" autocomplete="off">
         </div>
         <div class="user-input shadow">
-            <img src="{% static "images/password2.png" %}" alt="">
+            <img src="{% static 'images/password2.png' %}" alt="">
             <input id="pwd" name="password" type="password" style="display:none;" class="int"/><input id="tx" name="tx" type="text" value="密码" class="int"/>
 {#            <input type="password" name="password" value="" autocomplete="off">#}
         </div>

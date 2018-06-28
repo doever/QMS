@@ -17,9 +17,10 @@ from django.conf.urls import include,url
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'',include('apps.report.urls',namespace='report')),
+    # url(r'^question/',include('apps.question_track.urls',namespace='question')),
+    url(r'^account/',include('apps.account.urls',namespace='account')),
     url(r'^admin/', admin.site.urls),
-    url(r'',include('question_track.urls')),
-    # url(r'^question_track/', include('question_track.urls')),
 ]
 
 
