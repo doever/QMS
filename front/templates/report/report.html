@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>applynew_report</title>
+{#    <link rel="stylesheet" href="{% static "/css/report.css" %}">#}
+    <style>
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,
+        legend,input,textarea,p,blockquote,th,td{
+            margin:0;
+            padding:0;
+        }
+        body{
+            font-size: 12px;
+            font-family: tahoma,arial,'微软雅黑';
+            color:#3C3C3C;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+            color: #CCC;
+            /*font-size: 10px;*/
+        }
+        .head{
+            width: 100%;
+            height: 50px;
+            font-size: 12px;
+            background-color: #293c55;
+            {#position:fixed;#}
+            {#overflow: hidden;#}
+
+        }
+        .head .topic{
+            width: 150px;
+            float: left;
+        }
+        .head .topic span{
+            font-size: 15px;
+            font-weight: normal;
+            margin: 0 auto;
+            color:#FFF;
+            line-height: 50px;
+        }
+        .head .nav{
+            float: left;
+            height: 100%;
+        }
+        .head .nav ul li{
+            float: left;
+            width: 68px;
+            height: 100%;
+            text-align: center;
+        }
+        .head .nav ul li a{
+            font-size: 15px;
+            width: 68px;
+            height: 100%;
+            line-height: 50px;
+            margin: 0 auto;
+        }
+        .head .system{
+            height: 100%;
+        }
+        #applynewview{
+            width: 500px;
+            height: 300px;
+        }
+    </style>
+    <script type="text/javascript" src="{% static "/js/common/echarts.min.js" %}"></script>
+</head>
+<body>
+<div id="head" class="head">
+    <div class="topic">
+        <img src="" alt="">
+        <span>OZNER | 前端中心</span>
+    </div>
+    <div class="nav">
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">项目</a></li>
+            <li><a href="#">报表</a></li>
+            <li><a href="#">日志</a></li>
+            <li><a href="#">文档</a></li>
+        </ul>
+    </div>
+    <div class="system"></div>
+</div>
+
+<div id="applynewview"></div>
+
+<script>
+    var applynewChart=echarts.init(document.getElementById('applynewview'),'dark');
+    var xAxisData = {{ axis|safe }};
+    var data1 = {{ create|safe }};
+    var data2 = {{ install|safe }};
+
+    option = {
+        title: {
+            text: '开户安装量对比'
+        },
+        legend: {
+
+            data: ['开户量', '安装量'],
+            align: 'left'
+        },
+        toolbox: {
+            // y: 'bottom',
+            feature: {
+                magicType: {
+                    type: ['stack', 'tiled']
+                },
+                dataView: {},
+                saveAsImage: {
+                    pixelRatio: 2
+                }
+            }
+        },
+        tooltip: {},
+        xAxis: {
+            data: xAxisData,
+            silent: false,
+            splitLine: {
+                show: false
+            }
+        },
+        yAxis: {
+        },
+        series: [{
+            name: '开户量',
+            type: 'bar',
+            data: data1,
+            animationDelay: function (idx) {
+                return idx * 10;
+            }
+        }, {
+            name: '安装量',
+            type: 'bar',
+            data: data2,
+            animationDelay: function (idx) {
+                return idx * 10 + 100;
+            }
+        }],
+        animationEasing: 'elasticOut',
+        animationDelayUpdate: function (idx) {
+            return idx * 5;
+        }
+    };
+    applynewChart.setOption(option);
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录系统</title>
+    <script src="{% static 'js/common/jquery-3.1.1.min.js' %}"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/account/login.min.css' %}">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_724021_pxk352x5gc.css">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+{#    <link rel="bookmark"href="/favicon.ico" />#}
+    <script src="{% static 'js/layer/layer.js' %}"></script>
+    <script src="{% static 'js/common/myajax.js' %}"></script>
+    <script src="{% static 'js/account/account.min.js' %}"></script>
+</head>
+<body>
+
+<div class="background-wrapper">
+    <form action="" autocomplete="off" method="post">
+        {% csrf_token %}
+        <div class="auth-box-wrapper">
+            <div class="auth-box-title">
+                <h3>数据决策系统</h3>
+            </div>
+            <div class="input-group">
+                <span class="icon-img icon-people iconfont"></span>
+                <input class="form-control" type="text" name="username" placeholder="用户名">
+            </div>
+            <div class="input-group">
+                <span class="icon-img icon-tmpassword iconfont"></span>
+                <input class="form-control" type="password" name="password" placeholder="密码">
+            </div>
+            <div class="login-btn">
+                <input type="button" value="登录">
+            </div>
+            <div class="remember-group">
+                <label><input type="checkbox" name="remember" value="1">保持登录状态</label>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

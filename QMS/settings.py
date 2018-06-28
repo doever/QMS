@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'question_track.apps.QuestionTrackConfig',
+    'apps.account',
+    # 'apps.question_track',
+    'apps.report',
 ]
 
 MIDDLEWARE = [
@@ -55,8 +57,7 @@ ROOT_URLCONF = 'QMS.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'front','templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,6 +86,7 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
 CACHES = {
     'default':{
         'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
@@ -127,9 +129,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = 'account.User'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'front', 'dist')
+]
+
 
 MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 MEDIA_URL="/media/"
