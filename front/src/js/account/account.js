@@ -31,7 +31,7 @@ Signin.prototype.listenSignIn = function () {
                 console.log(result['code']);
                 if (result['code'] == 200) {
                     console.log(result);
-                    window.location.assign('http://127.0.0.1:8000');
+                    window.location.href='http://127.0.0.1:8000';
                 } else {
                     var messageObj = result['message'];
                     if (typeof messageObj == 'string') {

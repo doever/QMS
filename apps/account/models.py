@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUse
 from shortuuidfield import ShortUUIDField
 from django.db import models
 
+
 class UserManager(BaseUserManager):
     def _create_user(self,username,password,**kwargs):
         if not username:
@@ -31,6 +32,8 @@ class User(AbstractBaseUser,PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     data_joined = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to="userhead/%Y/%m",max_length=100,default='userhead/defalut.png')
+    work_position = models.CharField(max_length=20,default='这个人很懒,什么都没有留下')
 
     # 使用username验证
     USERNAME_FIELD = 'username'

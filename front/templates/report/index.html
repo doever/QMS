@@ -1,0 +1,37 @@
+{% extends 'common/base.html' %}
+{% load  static %}
+{% block title %}
+OZNER | 报表关系系统
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block content-title %}
+首页
+{% endblock %}
+
+{% block content %}
+<div class="layui-carousel" id="test1">
+  <div carousel-item>
+    <div><img src="http://www.ozner.net/upload/images/20171208/%E6%9C%8D%E5%8A%A12%E6%89%8B%E6%9C%BA1013062.jpg" alt=""></div>
+    <div><img src="http://www.ozner.net/upload/images/20170407/banner276551185778354.jpg" alt=""></div>
+    <div><img src="http://www.ozner.net/upload/images/20180402/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_201804021414335618782.jpg" alt=""></div>
+    <div><img src="http://www.ozner.net/upload/images/20170227/banner31058715.jpg" alt=""></div>
+  </div>
+</div>
+   <script src="{% static 'layui/layui.js' %}"></script>
+    <script>
+    layui.use('carousel', function(){
+      var carousel = layui.carousel;
+      //建造实例
+      carousel.render({
+        elem: '#test1'
+        ,width: '100%' //设置容器宽度
+        ,arrow: 'always' //始终显示箭头
+        //,anim: 'updown' //切换动画方式
+      });
+    });
+    </script>
+{% endblock %}

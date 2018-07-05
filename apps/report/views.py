@@ -9,11 +9,12 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required,permission_required
 
+
 # @method_decorator(login_required(login_url='/login/'),name='get')
 class Index(View):
     @method_decorator(login_required(login_url='/account/signin/'))
     def get(self,request):
-        return render(request, 'common/home.html')
+        return render(request, 'report/index.html')
 
 
 def test(request):

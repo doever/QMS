@@ -15,12 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import include,url
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
+from apps.account.views import gettemplates
 
 urlpatterns = [
     url(r'',include('apps.report.urls',namespace='report')),
     # url(r'^question/',include('apps.question_track.urls',namespace='question')),
     url(r'^account/',include('apps.account.urls',namespace='account')),
     url(r'^admin/', admin.site.urls),
-]
+    url(r'^templates/(?P<templates>.*)/', gettemplates,name='templates'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -1,0 +1,54 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block content-title %}
+用户管理
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/account/user.js' %}"></script>
+{% endblock %}
+
+{% block content-path %}
+用户管理
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <button class="btn btn-primary pull-right" id="user-add-btn">新增用户</button>
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>用户名</th>
+                                <th>用户手机</th>
+                                <th>用户邮箱</th>
+                                <th>用户职位</th>
+                                <th>用户加入时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                <tr data-pk="{{ user.uid }}">
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.telephone }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.work_position }}</td>
+                                    <td>{{ user.data_joined|date:"Y/m/d" }}</td>
+                                    <td>
+                                        <button class="btn btn-warning btn-xs">编辑</button>
+                                        <button class="btn btn-danger btn-xs">删除</button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

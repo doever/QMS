@@ -14,6 +14,7 @@ from apps import restful
 
 User = get_user_model()
 
+
 def add_user(request):
     username='chenlong'
     password='111111'
@@ -66,3 +67,29 @@ def list_view(request):
         page_obj = paginator.page(paginator.num_pages)
 
     return HttpResponse('123')
+
+
+class UserView(View):
+    def get(self,request):
+        users = User.objects.all()
+        return render(request,"account/user.html",context={'users':users})
+
+    def put(self,request):
+        pass
+
+    def post(self,request):
+        username = request.POST.get('username','')
+        password = request.POST.get('password','')
+        email = request.POST.get('email','')
+        telephone = request.POST.get('telephone','')
+        image = request.FILES.get('image')
+        user = User.objects.create_user(username=username,password=password,email=email,telephone=telephone,image=image)
+        return restful.ok()
+
+    def delete(self,request):
+        pass
+
+
+def gettemplates(request,templates):
+    print(templates)
+    return render(request,"account/%s" % templates)
