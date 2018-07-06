@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 from django.http import JsonResponse
 
+
 class HttpCode(object):
     ok = 200
     paramserror = 400
     unauth = 401
     methoderror = 405
     servererror = 500
+    forbiddenerror = 403
 
 
 def result(code=HttpCode.ok,message='',data=None):
@@ -36,3 +38,7 @@ def method_error(message='',data=None):
 
 def server_error(message='',data=None):
     return result(code=HttpCode.servererror,message=message,data=data)
+
+
+def forbidden_error(message='',data=None):
+    return result(code=HttpCode.forbiddenerror,message=message,data=data)

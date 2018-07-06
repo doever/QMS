@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from apps.account.views import gettemplates
+from apps.errors import views as error_views
 
 urlpatterns = [
     url(r'',include('apps.report.urls',namespace='report')),
@@ -26,6 +27,8 @@ urlpatterns = [
     url(r'^account/',include('apps.account.urls',namespace='account')),
     url(r'^admin/', admin.site.urls),
     url(r'^templates/(?P<templates>.*)/', gettemplates,name='templates'),
+    url(r'^view_403/$',error_views.view_403,name='view_403'),
+    url(r'^view_404/$',error_views.view_404,name='view_404'),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 

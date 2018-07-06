@@ -23,10 +23,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ajl%g3@@jw=bx&*328vv87^x+5txjby2%*9p$(*3-npxbw1=@k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+AUTHENTICATION_BACKENDS = (
+    'apps.account.views.AuthBackend',
+)
 
 # Application definition
 
@@ -88,11 +91,15 @@ DATABASES = {
 }
 
 CACHES = {
-    'default':{
-        'BACKEND':'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION':'127.0.0.1:11211',
-        'KEY_FUNCTION':lambda key,key_prefix,version:"django"+key,
-    }
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "IGNORE_EXCEPTIONS": True,
+            "CONNECTION_POOL_KWARGS": {"max_connections": 10}
+        },
+    },
 }
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
@@ -131,12 +138,20 @@ USE_TZ = True
 
 AUTH_USER_MODEL = 'account.User'
 
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'front', 'dist')
 ]
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.126.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'syrg_cl@126.com'
+EMAIL_HOST_PASSWORD = 'your password'
+EMAIL_FROM = 'syrg_cl@126.com'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>忘记密码</title>
+    <script src="{% static 'js/common/jquery-3.1.1.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/layer/layer.js' %}"></script>
+    <script src="{% static 'js/common/csrfajax.js' %}"></script>
+    <script>
+        $(function () {
+            var sendBtn = $('#send-mail');
+            sendBtn.click(function () {
+                var email = $(":input[name='email']").val();
+                var imgcode = $(":input[name='imgcode']").val();
+                if(!/.*@.*/.test(email)){
+                    layer.tips('请输入正确的邮箱',":input[name=\'email\']",{tips:1})
+                }else{
+                    csrfajax.post({
+                        'url':'/account/forget/',
+                        'data':{'email':email,'imgcode':imgcode},
+                        'success':function (result) {
+                            if(result['code']===200){
+                                layer.msg("邮件发送成功,正在跳转重置密码界面");
+                                //setTimeout(function (args) {
+                                    window.location.href="http://127.0.0.1:8000/account/reset/?email="+result['message'];
+                                //{,2000);
+
+                            }else{
+                                layer.msg(result['message']);
+                            }
+                        },
+                        'error':function () {
+                            layer.msg("服务器错误");
+                        }
+                    })
+                }
+            });
+            var imgBtn = $('#img-captcha');
+            imgBtn.click(function () {
+                $(this).attr({"src":"/account/img_captcha?random"+Math.random()});
+            });
+        })
+    </script>
+</head>
+<body>
+    <div class="container col-md-4 col-md-offset-4">
+        <div class="row" style="margin-top: 50px;">
+            <h1 class="page-header">密码找回</h1>
+        </div>
+        <div class="row" style="margin-top: 50px;">
+                <div class="row form-group">
+                    <label class="col-md-2 control-label">邮箱</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control"  placeholder="请输入邮箱" name="email">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label for="inputEmail2" class="col-md-2 control-label">验证码</label>
+                    <div class="col-md-7">
+                        <input type="text" class="form-control" id="inputEmail2"  placeholder="请输入验证码" name="imgcode">
+                    </div>
+                    <img src="{% url 'account:img_captcha' %}" alt="" class="col-md-3" style="height: 34px;padding-left: 0" id="img-captcha" >
+                </div>
+                <button class="col-md-10 col-md-offset-2 btn btn-primary" id="send-mail">发送邮件</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -21,7 +21,7 @@
     </div>
       <label class="layui-form-label">密码框</label>
     <div class="layui-input-inline">
-        <input type="password" name="password" value="{{ user.password }}" autocomplete="off" class="layui-input">
+        <input type="password" name="password" value="{{ user.password|slice:'0:10' }}" autocomplete="off" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item">

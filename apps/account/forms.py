@@ -25,7 +25,7 @@ class UserManageForm(forms.ModelForm,FormMixin):
     # telephone = forms.CharField(validators=[validators.RegexValidator(r'1\d{10}', message="请输入正确的手机号码！！！")])
     class Meta:
         model = User
-        fields = ['username','nickname','telephone','password','email','image','birday']
+        fields = ['username','nickname','telephone','password','email','image','birday','work_position']
         error_messages = {
             "username":{
                 "required":"请输入用户名",

@@ -26,7 +26,7 @@
                   'success':function (result) {
                       if(result['code']===200){
                           {#layer.msg(result['data']['url']);#}
-                          var userImg = $('#user-img');
+                          var userImg = $('#image');
                           userImg.val(result['data']['url']);
                       }
                   }
@@ -76,7 +76,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">选择图片</label>
         <div class="layui-input-inline">
-            <input type="text" class="layui-input userimg" name="user-img" id="user-img">
+            <input type="text" class="layui-input userimg" name="image" id="image">
         </div>
         <label class="layui-input-inline layui-btn">上传头像
             <input hidden="hidden" type="file" name="file"  class="layui-upload-file" id="file-btn">
@@ -86,7 +86,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">个人简介</label>
         <div class="layui-input-block">
-            <input type="text" class="layui-input userimg" name="desc" placeholder="不得超过20个字">
+            <input type="text" class="layui-input userimg" name="work_position" placeholder="不得超过20个字">
         </div>
   </div>
 </form>
