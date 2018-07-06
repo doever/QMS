@@ -4,38 +4,90 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}" media="all">
     <link rel="stylesheet" href="{% static 'adminlte/bower_components/bootstrap/dist/css/bootstrap.css' %}" media="all">
     <link rel="stylesheet" href="{% static 'adminlte/bower_components/bootstrap/dist/js/bootstrap.js' %}" media="all">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}" media="all">
+    <script src="{% static 'adminlte/bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'js/common/csrfajax.js' %}"></script>
+    <script src="{% static 'js/layer/layer.js' %}"></script>
+    <script>
+         $(function(){
+        //提交的按钮
+              var uploadBtn = $('#file-btn');
+              uploadBtn.change(function () {
+              var file = uploadBtn[0].files[0];
+              var formData = new FormData();
+              formData.append('file',file);
+              csrfajax.post({
+                  'url':'/account/upload/',
+                  'data':formData,
+                  'processData':false,
+                  'contentType':false,
+                  'success':function (result) {
+                      if(result['code']===200){
+                          {#layer.msg(result['data']['url']);#}
+                          var userImg = $('#user-img');
+                          userImg.val(result['data']['url']);
+                      }
+                  }
+              })
+            });
+        });
+    </script>
 </head>
 <body>
-<form class="layui-form" action="/account/user/" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+<form class="layui-form">
+
   <div class="layui-form-item">
     <label class="layui-form-label">用户名</label>
-    <div class="layui-input-inline">
-      <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+      <div class="layui-input-inline">
+          <input type="text" name="username" placeholder= "请输入用户名" autocomplete="off" class="layui-input">
     </div>
       <label class="layui-form-label">密码框</label>
     <div class="layui-input-inline">
-      <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        <input type="password" name="password" placeholder= "请输入密码框"  autocomplete="off" class="layui-input">
     </div>
   </div>
+
+   <div class="layui-form-item">
+        <label class="layui-form-label">昵称</label>
+        <div class="layui-input-inline">
+          <input type="text" name="nickname" placeholder= "请输入昵称" autocomplete="off" class="layui-input">
+        </div>
+       <label class="layui-form-label">生日</label>
+        <div class="layui-input-inline">
+          <input type="date" name="birday" placeholder= "请输入昵称" autocomplete="off" class="layui-input">
+        </div>
+  </div>
+
+
+
   <div class="layui-form-item">
     <label class="layui-form-label">手机号码</label>
-    <div class="layui-input-inline">
-      <input type="text" name="telephone" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+      <div class="layui-input-inline">
+          <input type="text" name="telephone" placeholder= "请输入手机号码"  autocomplete="off" class="layui-input">
     </div>
       <label class="layui-form-label">电子邮箱</label>
-    <div class="layui-input-inline">
-      <input type="text" name="email" placeholder="请输入电子邮箱" autocomplete="off" class="layui-input">
+      <div class="layui-input-inline">
+          <input type="text" name="email" placeholder= "请输入电子邮箱"  autocomplete="off" class="layui-input">
     </div>
   </div>
+
     <div class="layui-form-item">
-    <label class="layui-form-label">头像</label>
-    <div class="layui-input-inline">
-      <input type="file" name="image"  class="layui-input">
-    </div>
+        <label class="layui-form-label">选择图片</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input userimg" name="user-img" id="user-img">
+        </div>
+        <label class="layui-input-inline layui-btn">上传头像
+            <input hidden="hidden" type="file" name="file"  class="layui-upload-file" id="file-btn">
+        </label>
+  </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">个人简介</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input userimg" name="desc" placeholder="不得超过20个字">
+        </div>
   </div>
 </form>
 </body>

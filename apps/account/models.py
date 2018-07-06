@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager
 from shortuuidfield import ShortUUIDField
 from django.db import models
@@ -27,6 +29,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser,PermissionsMixin):
     uid = ShortUUIDField(primary_key=True)
     username = models.CharField(max_length=50,unique=True)
+    nickname = models.CharField(max_length=50,default='')
     telephone = models.CharField(max_length=11,unique=True)
     email = models.EmailField(unique=True)
     is_active = models.BooleanField(default=True)
@@ -34,6 +37,8 @@ class User(AbstractBaseUser,PermissionsMixin):
     data_joined = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to="userhead/%Y/%m",max_length=100,default='userhead/defalut.png')
     work_position = models.CharField(max_length=20,default='这个人很懒,什么都没有留下')
+    jobs = models.CharField(max_length=20,default='员工')
+    birday = models.DateTimeField(default=datetime.now)
 
     # 使用username验证
     USERNAME_FIELD = 'username'
@@ -47,3 +52,4 @@ class User(AbstractBaseUser,PermissionsMixin):
 
     def get_short_name(self):
         return self.username
+

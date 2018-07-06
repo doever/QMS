@@ -18,17 +18,21 @@ def result(code=HttpCode.ok,message='',data=None):
     return JsonResponse(json_dict)
 
 
-def ok():
-    return result()
+def ok(message="",data=None):
+    return result(code=HttpCode.ok,message=message,data=data)
+
 
 def params_error(message="",data=None):
     return result(code=HttpCode.paramserror,message=message,data=data)
 
+
 def unauth(message="",data=None):
     return result(code=HttpCode.unauth,message=message,data=data)
 
+
 def method_error(message='',data=None):
     return result(code=HttpCode.methoderror,message=message,data=data)
+
 
 def server_error(message='',data=None):
     return result(code=HttpCode.servererror,message=message,data=data)

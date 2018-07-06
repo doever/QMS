@@ -26,6 +26,6 @@ urlpatterns = [
     url(r'^account/',include('apps.account.urls',namespace='account')),
     url(r'^admin/', admin.site.urls),
     url(r'^templates/(?P<templates>.*)/', gettemplates,name='templates'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 

@@ -20,7 +20,7 @@ Signin.prototype.listenSignIn = function () {
         }else if(!password){
             layer.tips('请输入密码',"input[name=password]");
         }else{
-        myajax.post({
+        csrfajax.post({
             'url': '/account/signin/',
             'data': {
                 'username': username,
