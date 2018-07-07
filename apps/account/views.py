@@ -49,8 +49,6 @@ class Signin(View):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             remember = form.cleaned_data.get('remember')
-            print(username)
-            print(password)
             user = authenticate(username=username,password=password)
             if user:
                 if user.is_active:
@@ -60,14 +58,13 @@ class Signin(View):
                         request.session.set_expiry(0)
                     login(request, user)
                     return restful.ok()
-                    # return redirect(reverse("report:index"))
                 else:
                     return restful.unauth(message="用户已被停用")
             else:
                 return restful.params_error(message="用户不存在或密码错误")
         else:
             print(form.get_errors())
-            return restful.params_error(message=form.get_errors())
+            return restful.params_error(message=form.get_first_error())
 
 
 # @require_POST
@@ -76,22 +73,7 @@ def logout_view(request):
     return redirect(reverse("account:signin"))
 
 
-def list_view(request):
-    # user = User.objects.all()
-    user = ['1','2','3','4']
-    paginator = Paginator(user,10)
-    page = request.GET.get('page')
-    try:
-        page_obj = paginator.page(page)
-    except PageNotAnInteger:
-        page_obj = paginator.page(1)
-    except EmptyPage:
-        page_obj = paginator.page(paginator.num_pages)
-
-    return HttpResponse('123')
-
-
-# 用户管理视图
+# 用户管理
 @method_decorator(login_required(login_url='/account/signin/'),name='get')
 class UserView(View):
     def get(self,request):
@@ -110,13 +92,20 @@ class UserView(View):
     def put(self,request):
         qd = QueryDict(request.body)
         put_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
-        user_id = put_dict.get('userid','')
-        user_name = put_dict.get('username','')
-        password = put_dict.get('password','')
-        telephone = put_dict.get('telephone','')
-        email = put_dict.get('email','')
-        user = User.objects.filter(pk=user_id).update(username=user_name,telephone=telephone,email=email)
-        return restful.ok()
+        form = UserManageForm(put_dict)
+        if form.is_valid():
+            password = put_dict.get('password','')
+            # user_id = put_dict.get('userid','')
+            # user_name = put_dict.get('username','')
+            # telephone = put_dict.get('telephone','')
+            # email = put_dict.get('email','')
+            # user = User.objects.filter(pk=user_id).update(username=user_name,telephone=telephone,email=email)
+            user = form.save(commit=False)
+            user.set_password(password)
+            user.save()
+            return restful.ok()
+        else:
+            return restful.params_error(message=form.get_first_error())
 
     def post(self,request):
         form = UserManageForm(request.POST)
@@ -192,7 +181,7 @@ class ResetView(View):
         re_password = request.POST.get('re_password')
         vaild_code = request.POST.get('vaild_code')
         cache_code = cache.get(email)
-        if de_redis_conn.llen(email+'error') >= 5:
+        if de_redis_conn.llen(email+'bk') >= 5:
             # from django.shortcuts import render_to_response
             # response = render_to_response('403.html', {})
             # response.status_code = 403
@@ -203,7 +192,7 @@ class ResetView(View):
             return restful.params_error('两次密码不一致')
         if vaild_code != cache_code:
             # 限制用户频繁输入错的验证码
-            bad_key = email+'error'
+            bad_key = email+'bk'
             de_redis_conn.lpush(bad_key,1)
             return restful.params_error('验证码错误')
 

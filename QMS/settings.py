@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ajl%g3@@jw=bx&*328vv87^x+5txjby2%*9p$(*3-npxbw1=@k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 AUTHENTICATION_BACKENDS = (
     'apps.account.views.AuthBackend',
