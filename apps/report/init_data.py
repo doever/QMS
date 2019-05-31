@@ -53,19 +53,16 @@ class InitDb(object):
         if isinstance(data_list,list):
             metadata = random.choice(data_list)
             return metadata
-
         elif isinstance(data_list,bool):
             metadata = random.choice([0,1])
             return metadata
-
         elif isinstance(data_list,int):
             for i in range(data_list):
                 ran = str(random.randint(0,9))
                 metadata += ran
             return metadata
-
-        # 传入getname参数表示,随机获取一个名字
-        elif data_list =='getname':
+        elif data_list == 'getname':
+            # 传入getname参数表示,随机获取一个名字
             leng = random.randint(1,3)
             first_name = random.choice(InitDb.first_name_li)
             last_name = ''
@@ -79,7 +76,7 @@ class InitDb(object):
 
     @classmethod
     def init_date(cls,d):
-        if d < 9:
+        if d <= 9:
             d = '0' + str(d)
             return str(d)
         else:
@@ -139,7 +136,7 @@ if __name__ == '__main__':
         "A7":['公共','家用','浩优','浩阳','依泉','机场','战略合作部','千野']
 
     }
-    initdb = InitDb(order_type='KH',start_date=start_date,end_date=end_date,num=20,**custom_defined)
+    initdb = InitDb(order_type='KH',start_date=start_date,end_date=end_date,num=500,**custom_defined)
     datas = initdb.prod_data()
     for data in datas:
         ss = str(tuple(data.values())+tuple(random.choice(res)))

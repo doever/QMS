@@ -3,18 +3,18 @@ import os
 from io import BytesIO
 
 from django.http import HttpResponse
-from django.shortcuts import render,redirect,reverse
+from django.shortcuts import render, redirect, reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_POST
 from django.views import View
-from django.contrib.auth.decorators import login_required,permission_required
-from django.contrib.auth import authenticate,logout,login
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.backends import ModelBackend
 from django.conf import settings
 from django.http import QueryDict
-from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-from django.db.models import Q,F
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q, F
 from django.core.cache import cache
 from django_redis import get_redis_connection
 
@@ -26,7 +26,7 @@ from apps.utils.email_send import send_reset_email
 from apps.utils.captcha.ozcaptcha import Captcha
 
 User = get_user_model()
-de_redis_conn = get_redis_connection("default")
+Db_Redis_Conn = get_redis_connection("default")
 
 
 class AuthBackend(ModelBackend):
@@ -74,11 +74,11 @@ def logout_view(request):
 
 
 # 用户管理
-@method_decorator(login_required(login_url='/account/signin/'),name='get')
+@method_decorator(login_required(login_url='/account/signin/'), name='get')
 class UserView(View):
-    def get(self,request):
+    def get(self, request):
         users = User.objects.filter(is_active=1).order_by("-data_joined")
-        paginator = Paginator(users,10)
+        paginator = Paginator(users, 10)
         page = request.GET.get('page')
         try:
             users = paginator.page(page)
@@ -87,14 +87,14 @@ class UserView(View):
         except EmptyPage:
             users = paginator.page(paginator.num_pages)
 
-        return render(request,"account/user.html",context={'users':users,'paginator':paginator})
+        return render(request, "account/user.html", context={'users': users, 'paginator': paginator})
 
-    def put(self,request):
+    def put(self, request):
         qd = QueryDict(request.body)
         put_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
         form = UserManageForm(put_dict)
         if form.is_valid():
-            password = put_dict.get('password','')
+            password = put_dict.get('password', '')
             # user_id = put_dict.get('userid','')
             # user_name = put_dict.get('username','')
             # telephone = put_dict.get('telephone','')
@@ -107,7 +107,7 @@ class UserView(View):
         else:
             return restful.params_error(message=form.get_first_error())
 
-    def post(self,request):
+    def post(self, request):
         form = UserManageForm(request.POST)
         if form.is_valid():
             password = form.cleaned_data.get("password")
@@ -119,19 +119,19 @@ class UserView(View):
         else:
             return restful.params_error(message=form.get_first_error())
 
-    def delete(self,request):
+    def delete(self, request):
         qd = QueryDict(request.body)
         delete_dict = {k: v[0] if len(v) == 1 else v for k, v in qd.lists()}
-        user_id = delete_dict.get('user_id','')
+        user_id = delete_dict.get('user_id', '')
         user = User.objects.get(pk=user_id)
         user.is_active = False
         user.save()
         return restful.ok()
 
 
-def user_edit(request,user_id):
+def user_edit(request, user_id):
     user = User.objects.get(pk=user_id)
-    return render(request,"account/user_edit.html",context={'user':user})
+    return render(request, "account/user_edit.html", context={'user': user})
 
 
 # 处理用户上传头像
@@ -140,23 +140,22 @@ def save_img(request):
     file = request.FILES.get('file')
     name = file.name
     position = 'userhead/'+name
-    print(position)
-    with open(os.path.join(settings.MEDIA_ROOT,position), 'wb') as fp:
+    with open(os.path.join(settings.MEDIA_ROOT, position), 'wb') as fp:
         for chunk in file.chunks():
             fp.write(chunk)
-    return restful.ok(data={'url':position})
+    return restful.ok(data={'url': position})
 
 
 # 用于layer返回模板
-def gettemplates(request,templates):
-    return render(request,"account/%s" % templates)
+def gettemplates(request, templates):
+    return render(request, f"account/{templates}")
 
 
 class ForgetView(View):
-    def get(self,request):
-        return render(request,"account/forget.html")
+    def get(self, request):
+        return render(request, "account/forget.html")
 
-    def post(self,request):
+    def post(self, request):
         email = request.POST.get('email')
         captcha_code = request.POST.get('imgcode')
         if email:
@@ -172,16 +171,16 @@ class ForgetView(View):
 
 
 class ResetView(View):
-    def get(self,request):
-        return render(request,"account/reset_password.html")
+    def get(self, request):
+        return render(request, "account/reset_password.html")
 
-    def post(self,request):
+    def post(self, request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         re_password = request.POST.get('re_password')
         vaild_code = request.POST.get('vaild_code')
         cache_code = cache.get(email)
-        if de_redis_conn.llen(email+'bk') >= 5:
+        if Db_Redis_Conn.llen(email+'bk') >= 5:
             # from django.shortcuts import render_to_response
             # response = render_to_response('403.html', {})
             # response.status_code = 403
@@ -191,9 +190,9 @@ class ResetView(View):
         if password != re_password:
             return restful.params_error('两次密码不一致')
         if vaild_code != cache_code:
-            # 限制用户频繁输入错的验证码
+            # 使用redis限制用户频繁输入错的验证码
             bad_key = email+'bk'
-            de_redis_conn.lpush(bad_key,1)
+            Db_Redis_Conn.lpush(bad_key,1)
             return restful.params_error('验证码错误')
 
         user = User.objects.get(email=email)

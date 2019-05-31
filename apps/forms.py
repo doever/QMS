@@ -30,17 +30,3 @@ class FormMixin(object):
             return first_error
 
 
-# {'username': [{'message': '请输入用户名', 'code': 'required'}], 'nickname': [{'m
-# essage': '请输入用户名', 'code': 'required'}], 'telephone': [{'message': 'This f
-# ield is required.', 'code': 'required'}], 'password': [{'message': '请输入密码',
-#  'code': 'required'}], 'email': [{'message': '请输入邮箱', 'code': 'required'}],
-#  'birday': [{'message': 'This field is required.', 'code': 'required'}]}
-# {'username': ['请输入用户名'], 'nickname': ['请输入用户名'], 'telephone': ['This
-#  field is required.'], 'password': ['请输入密码'], 'email': ['请输入邮箱'], 'bir
-# day': ['This field is required.']}
-# {'username': [{'message': '请输入用户名', 'code': 'required'}], 'nickname': [{'m
-# essage': '请输入用户名', 'code': 'required'}], 'telephone': [{'message': 'This f
-# ield is required.', 'code': 'required'}], 'password': [{'message': '请输入密码',
-#  'code': 'required'}], 'email': [{'message': '请输入邮箱', 'code': 'required'}],
-#  'birday': [{'message': 'This field is required.', 'code': 'required'}]}
-
